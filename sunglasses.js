@@ -1,11 +1,14 @@
 let myproducts = [];
 
-fetch("https://dummyjson.com/products/category/sunglasses?limit=0")
-  .then((response) => response.json())
-  .then(function (data) {
-    products = data.products;
+async function getProducts() {
+  try {
+    let url = "https://dummyjson.com/products/category/sunglasses?limit=0";
 
-    let productsArray = products.map(function (value) {
+    let response = await fetch(url);
+    let data = await response.json();
+    myproducts = data.products;
+
+    let productsArray = myproducts.map(function (value) {
       return `
         <div class="justify-between bg-white rounded-xl border border-gray-100 group shadow-sm hover:shadow-md h-full">
         <div class="relative overflow-hidden bg-gray-50  max-h-52">
@@ -38,15 +41,16 @@ fetch("https://dummyjson.com/products/category/sunglasses?limit=0")
     </div>
   </div>
    </div>
-          `;
+      `;
     });
 
     document.getElementById("products").innerHTML = productsArray.join("");
-  })
-  .catch(function (error) {
+  } catch (error) {
     console.log(error);
-    document.querySelector("#errorProducts").innerHTML = "Error loading produts...";
-  })
-  .finally(function () {
+    document.querySelector("#errorUser").innerHTML = "Error loading users...";
+  } finally {
     console.log("Fetching completed");
-  });
+  }
+}
+
+getProducts();
