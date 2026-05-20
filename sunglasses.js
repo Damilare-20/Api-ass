@@ -41,7 +41,7 @@ async function getProducts() {
     </div>
   </div>
    </div>
-      `;
+      `
     });
 
     document.getElementById("products").innerHTML = productsArray.join("");
